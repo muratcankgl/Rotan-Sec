@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RotanıSeç – İletişim</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Ortak stil -->
+  <link rel="stylesheet" href="style.css">
+  <!-- İletişim sayfasına özel stil -->
+  <link rel="stylesheet" href="iletisim.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    .success-message {
+      margin: 40px auto;
+      padding: 20px;
+      max-width: 600px;
+      background: #e0f7fa;
+      border: 1px solid #FF6E5A;
+      border-radius: 6px;
+      color: #FF6E5A;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <nav aria-label="Ana navigasyon">
+      <div class="logo">
+        <a href="index.html" aria-label="Ana sayfaya dön">
+          <img src="img/logo.png" alt="RotanıSeç Logo">
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Anasayfa</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">Hakkımızda</a>
+        <a href="iletisim.html" class="active">İletişim</a>
+        <a href="login.html">Giriş Yap</a>
+        <a href="register.html">Üye Ol</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- İLETİŞİM BÖLÜMÜ -->
+  <main class="contact-page container">
+    <h2>Bizimle İletişime Geçin</h2>
+    <p>Her türlü soru ve öneriniz için aşağıdaki formu doldurabilirsiniz. Sizlere en kısa sürede geri dönüş yapacağız.</p>
+
+    <!-- Bu div, form yerine başarı mesajını gösterecek -->
+    <div id="successMessage" class="success-message" style="display:none;">
+      Mesajınız iletilmiştir. En kısa sürede size dönüş yapacağız.
+    </div>
+
+    <form id="contactForm" class="contact-form" action="#" method="POST" aria-label="İletişim formu">
+      <div class="form-row">
+        <label for="name">Ad Soyad</label>
+        <input type="text" id="name" name="name" required placeholder="Ad Soyad">
+      </div>
+      <div class="form-row">
+        <label for="email">E-posta</label>
+        <input type="email" id="email" name="email" required placeholder="example@domain.com">
+      </div>
+      <div class="form-row">
+        <label for="subject">Konu</label>
+        <input type="text" id="subject" name="subject" required placeholder="Konu başlığı">
+      </div>
+      <div class="form-row">
+        <label for="message">Mesajınız</label>
+        <textarea id="message" name="message" rows="6" required placeholder="Mesajınızı buraya yazın"></textarea>
+      </div>
+      <button type="submit" class="btn">Gönder</button>
+    </form>
+  </main>
+
+  
+
+  <!-- Başarı mesajı ve form işlemi için JS -->
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Formu gizle
+      this.style.display = 'none';
+      // Başarı mesajını göster
+      document.getElementById('successMessage').style.display = 'block';
+      // İstersen formu sıfırlayabilirsin:
+      // this.reset();
+    });
+  </script>
+</body>
+</html>
+```

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RotanıSeç – Rota Detayı</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    body { font-family: 'Poppins', sans-serif; line-height: 1.6; }
+    header, footer { background: #f8f8f8; padding: 20px 0; }
+    .container { width: 90%; max-width: 1000px; margin: auto; }
+    nav .nav-links a { margin: 0 10px; text-decoration: none; color: #333; }
+    nav .nav-links a.active { font-weight: 600; }
+    .detail { max-width: 800px; margin: 80px auto; }
+    .detail img { width:100%; border-radius:8px; margin:20px 0; }
+    .extra-content p { margin: 20px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <nav aria-label="Ana navigasyon">
+      <div class="logo">
+        <a href="index.html" aria-label="Ana sayfaya dön">
+          <img loading="lazy" src="img/logo.png" alt="RotanıSeç Logo">
+        </a>
+      </div>
+      <!-- Mobil menü butonu (isteğe bağlı) -->
+      <!-- <button class="nav-toggle" aria-label="Menüyü aç/kapat"><i class="fa fa-bars"></i></button> -->
+      <div class="nav-links">
+        <a href="index.html" class="active">Anasayfa</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">Hakkımızda</a>
+        <a href="iletisim.html">İletişim</a>
+        <a href="login.html">Giriş Yap</a>
+        <a href="register.html">Üye Ol</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- DETAY İÇERİK -->
+  <main class="container detail">
+    <h1 id="name">Yükleniyor...</h1>
+    <img id="photo" src="" alt=""/>
+    <p id="description"></p>
+
+    <div class="extra-content">
+      <h2>Rota Hakkında Tarihçe</h2>
+      <p id="history"></p>
+
+      <h2>Gezgin İpuçları</h2>
+      <p id="tips"></p>
+
+      <h2>Öne Çıkan Aktiviteler</h2>
+      <p id="activities"></p>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-sections">
+      <div class="footer-about">
+        <h3>RotanıSeç</h3>
+        <p> Hayalinizdeki tatili şimdi planlayın. 
+      En uygun fiyat, kişiye özel öneriler ve 7/24 destek ile 
+      RotanıSeç farkını yaşayacaksınız.</p>
+      </div>
+      <div class="footer-links">
+      <h4>Hızlı Erişim</h4>
+      <ul style="list-style:none; padding:0; margin:0;">
+        <li><a href="index.html">Anasayfa</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">Hakkımızda</a></li>
+        <li><a href="login.html">Giriş Yap</a></li>
+        <li><a href="register.html">Üye Ol</a></li>
+      </ul>
+    </div>
+    
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook-f" aria-label="Facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram" aria-label="Instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter" aria-label="Twitter"></i></a>
+      </div>
+    </div>
+    <p class="copyright">© 2025 RotanıSeç. Tüm hakları saklıdır.</p>
+  </footer>
+
+  <script>
+    // Inline veri dizisi
+    const locations = [
+      {
+        id: 'istanbul',
+        name: 'İstanbul',
+        photo: 'img/istanbul.jpg',
+        description: 'Tarihi yarımadayı ve Boğaz’ı keşfedin.',
+        history: 'Bizans ve Osmanlı başkenti olarak yüzyıllar boyunca pek çok kültüre ev sahipliği yapmıştır.',
+        tips: 'Sabah erken saatlerde Ayasofya’ya gidin; turistik yerlerde bilet sırasından kurtulmak için online bilet alın.',
+        activities: '2 saatlik Boğaz turu, Sultanahmet Meydanı’nda yürüyüş, Kapalıçarşı’da alışveriş.'
+      },
+      {
+        id: 'kapadokya',
+        name: 'Kapadokya',
+        photo: 'img/gorsel2.jpg',
+        description: 'Peri bacalarının üzerinden balonla uçun.',
+        history: 'Yaklaşık 3.000 yıllık kaya yerleşimleri ve jeolojik oluşumlarıyla ünlüdür.',
+        tips: 'Balon turları için çok erken rezervasyon yaptırın; kış aylarında katmanlı giyinin.',
+        activities: 'Gündoğumunda balon turu, Göreme Açık Hava Müzesi ziyareti, yeraltı şehirleri keşfi.'
+      },
+      {
+        id: 'antalya',
+        name: 'Antalya',
+        photo: 'img/antalya.jpg',
+        description: 'Turkuaz denizde serinleyin, tarihi Kaleiçi’ni gezin.',
+        history: 'M.Ö. 2. yüzyılda kurulmuş, Roma ve Bizans dönemlerinden kalma eserler içerir.',
+        tips: 'Kaleiçi’nde dar sokaklarda kaybolun, Duden Şelalesi’ne mutlaka uğrayın.',
+        activities: 'Tekne turu, Konyaaltı Plajı’nda yüzme, tarihi Hadrian Kapısı ziyareti.'
+      },
+      {
+        id: 'izmir',
+        name: 'İzmir',
+        photo: 'img/izmir.jpg',
+        description: 'Ege’nin incisi İzmir’de sahil ve lezzet turu yapın.',
+        history: 'Kadim Smyrna kenti üzerine kurulu; ticaret ve kültür merkezi olarak gelişmiştir.',
+        tips: 'Saat Kulesi çevresindeki kafelerde boyoz ve kumru deneyin, Kordon’da yürüyüş yapın.',
+        activities: 'Şirince köyü gezisi, Agora Açık Hava Müzesi ziyareti, Alsancak barlar sokağında akşam eğlencesi.'
+      }
+    ];
+
+    // URL parametresini oku
+    const params = new URLSearchParams(window.location.search);
+    const loc = params.get('loc') || 'istanbul';
+
+    // Veriyi bul ve sayfaya yerleştir
+    const info = locations.find(d => d.id === loc);
+    if (!info) {
+      document.getElementById('name').textContent = 'Rota bulunamadı';
+      document.getElementById('description').textContent = 'Lütfen geçerli bir rota seçin.';
+    } else {
+      document.getElementById('name').textContent        = info.name;
+      document.getElementById('photo').src               = info.photo;
+      document.getElementById('photo').alt               = info.name;
+      document.getElementById('description').textContent = info.description;
+      document.getElementById('history').textContent     = info.history;
+      document.getElementById('tips').textContent        = info.tips;
+      document.getElementById('activities').textContent  = info.activities;
+    }
+  </script>
+</body>
+</html>

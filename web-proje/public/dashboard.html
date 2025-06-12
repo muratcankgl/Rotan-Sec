@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RotanıSeç – Yazı Ekle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* Dashboard’a özel ufak stil */
+    .post-creator { max-width: 600px; margin: auto; padding: 60px 0; }
+    .post-creator input,
+    .post-creator textarea,
+    .post-creator button {
+      width: 100%; margin: 10px 0; padding: 12px; border-radius: 6px; border: 1px solid #ccc;
+      font-family: inherit; font-size: 1rem;
+    }
+    .post-creator button {
+      background: #FF6E5A; border: none; color: #fff; cursor: pointer;
+    }
+  </style>
+</head>
+<body class="dashboard-page">
+
+  <!-- NAVBAR -->
+  <header>
+    <nav aria-label="Ana navigasyon">
+      <div class="logo">
+        <a href="index.html"><img src="img/logo.png" alt="RotanıSeç logosu"></a>
+      </div>
+      <button class="nav-toggle" aria-label="Menüyü aç/kapat">
+        <i class="fa fa-bars"></i>
+      </button>
+      <div class="nav-links">
+        <a href="index.html">Anasayfa</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">Hakkımızda</a>
+        <a href="iletisim.html">İletişim</a>
+        <a href="login.html">Giriş Yap</a>
+        <a href="register.html">Üye Ol</a>
+      </div>
+    </nav>
+  </header>
+
+   <!-- İÇERİK -->
+  <main class="container" style="margin-top:90px;">
+    <section class="post-creator">
+      <h1>Yeni Blog Yazısı Oluştur</h1>
+      <form id="postForm">
+        <input type="text" id="title"      placeholder="Yazı Başlığı"        required aria-label="Yazı Başlığı"/>
+        <input type="url"  id="imageUrl"   placeholder="Görsel URL’si"       required aria-label="Görsel URL’si"/>
+        <textarea         id="content"    rows="6" placeholder="Yazı İçeriği" required aria-label="Yazı İçeriği"></textarea>
+        <button type="submit">Yazıyı Kaydet</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('postForm').addEventListener('submit', e => {
+      e.preventDefault();
+  
+      const title    = document.getElementById('title').value.trim();
+      const imageUrl = document.getElementById('imageUrl').value.trim();
+      const content  = document.getElementById('content').value.trim();
+      if (!title || !imageUrl || !content) return alert('Lütfen tüm alanları doldurun.');
+  
+      // Mevcut post'ları al
+      const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+  
+      // Oturum açmış kullanıcının adını al
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      const authorName  = currentUser.name || '';
+  
+      // Yeni yazıyı ekle (başlık, görsel, içerik ve yazar)
+      posts.unshift({
+        title,
+        imageUrl,
+        content,
+        author: authorName
+      });
+  
+      // Güncellenmiş listeyi sakla
+      localStorage.setItem('posts', JSON.stringify(posts));
+  
+      // Blog sayfasına dön
+      window.location.href = 'blog.html';
+    });
+  </script>
+
+</body>
+</html>

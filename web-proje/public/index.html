@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RotanıSeç - Seyahat Rehberiniz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script defer src="js/posts.js"></script>
+  <script defer src="js/campaigns.js"></script>
+</head>
+<body>
+  <header>
+    <nav aria-label="Ana navigasyon">
+      <div class="logo">
+        <a href="index.html" aria-label="Ana sayfaya dön"><img loading="lazy" src="img/logo.png" alt="RotanıSeç Logo"></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="active">Anasayfa</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">Hakkımızda</a>
+        <a href="iletisim.html">İletişim</a>
+        <a href="login.html">Giriş Yap</a>
+        <a href="register.html">Üye Ol</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="searchForm">
+      <div class="slide-layer layer1"></div>
+      <div class="slide-layer layer2"></div>
+      <div class="overlay" aria-hidden="true"></div>
+      <div class="hero-content">
+        <h1>BİR SONRAKİ MACERANIZI KEŞFEDİN!</h1>
+        <form class="hero-form" aria-label="Seyahat arama formu" action="search.html" method="GET">
+          <input type="date" name="date" required aria-label="Tarih seçin">
+          <input type="date" name="checkout" required aria-label="Çıkış tarihi"> 
+          <input type="number" name="people" placeholder="Kişi Sayısı" required min="1" aria-label="Kişi sayısı">
+          <select name="location" required aria-label="Lokasyon seçin">
+            <option value="" disabled selected>Lokasyon Seçin</option>
+            <option>İstanbul</option>
+            <option>Kapadokya</option>
+            <option>Antalya</option>
+            <option>İzmir</option>
+          </select>
+          <button type="submit">Rotanı Seç</button>
+        </form>
+      </div>
+    </section>
+    
+  <section id="campaignBanner" class="campaign-banner">
+    <div class="container banner-content">
+      <h2 class="campaign-title"></h2>
+      <p class="campaign-subtitle"></p>
+      <a href="#" class="campaign-btn btn-primary"></a>
+    </div>
+  </section>
+<section class="featured-destinations container">
+  <h2>Popüler Rotalar</h2>
+  <div class="destinations-grid">
+    <article class="destination-card">
+      <img loading="lazy" src="img/istanbul.jpg" alt="İstanbul Boğazı">
+      <h3>İstanbul</h3>
+      <p>Tarihi yarımadayı keşfedin.</p>
+      <a href="destination.html?loc=istanbul" class="btn">Detaylar</a>
+    </article>
+    <article class="destination-card">
+      <img loading="lazy" src="img/gorsel2.jpg" alt="Kapadokya balonları">
+      <h3>Kapadokya</h3>
+      <p>Peri bacılarının üzerinden uçun.</p>
+      <a href="destination.html?loc=kapadokya" class="btn">Detaylar</a>
+    </article>
+    <article class="destination-card">
+      <img loading="lazy" src="img/antalya.jpg" alt="Antalya sahili">
+      <h3>Antalya</h3>
+      <p>Turkuaz denizde serinleyin.</p>
+      <a href="destination.html?loc=antalya" class="btn">Detaylar</a>
+    </article>
+    <article class="destination-card">
+      <img loading="lazy" src="img/izmir.jpg" alt="İzmir kıyısı">
+      <h3>İzmir</h3>
+      <p>Güzel Ege’nin sıcak yüzü sizi bekliyor.</p>
+      <a href="destination.html?loc=izmir" class="btn">Detaylar</a>
+    </article>
+  </div>
+</section>
+
+
+<section class="map-section container">
+  <h2>Gezilecek Yerler Haritası</h2>
+  <div id="map"></div>
+</section>
+<section class="blog-list container">
+  <h2>Son Blog Yazıları</h2>
+  <div id="latestPosts" class="latest-posts-grid">
+  </div>
+  <p class="text-center">
+    <a href="blog.html" class="btn btn-primary">
+      Tüm Blog Yazılarına Git <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </a>
+  </p>
+</section>
+
+    <section class="promo">
+      <div class="container">
+        <h2>Neden RotanıSeç?</h2>
+        <div class="promo-cards">
+          <div class="card">
+            <i class="fa-solid fa-earth-europe"></i>
+            <h3>Kolay Gezi Planlama</h3>
+            <p>Seyahatinizi tek yerden planlayın.</p>
+          </div>
+          <div class="card">
+            <i class="fa-solid fa-headset"></i>
+            <h3>7/24 Destek</h3>
+            <p>Sorularınıza anında yanıt alın.</p>
+          </div>
+          <div class="card">
+            <i class="fa-solid fa-plane-departure"></i>
+            <h3>Zaman Tasarrufu</h3>
+            <p>Hızlı ve güvenli rezervasyon.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="comments-slider">
+      <div class="container">
+        <h2>Kullanıcı Yorumları</h2>
+        <div class="slider">
+          <div class="slide active">
+            <p>"Harika bir deneyimdi! Rotamı kolayca seçtim."</p>
+            <span>- Ayşe Y.</span>
+          </div>
+          <div class="slide">
+            <p>"Tek kelimeyle mükemmel hizmet!"</p>
+            <span>- Mehmet D.</span>
+          </div>
+          <div class="slide">
+            <p>"Kullanımı çok kolay ve hızlı bir site."</p>
+            <span>- Elif K.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+      <div class="container">
+        <h2>Özel Fırsatlardan İlk Sen Haberdar Ol</h2>
+        <form id="newsletterForm" class="newsletter-form" aria-label="Bülten abonelik formu">
+          <input
+            type="email"
+            id="newsletterEmail"
+            placeholder="E-posta adresiniz"
+            required
+            aria-label="E-posta adresi"
+          >
+          <button type="submit">Abone Ol</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+  <footer>
+    <div class="container footer-sections">
+      <div class="footer-about">
+        <h3>RotanıSeç</h3>
+        <p> Hayalinizdeki tatili şimdi planlayın. 
+      En uygun fiyat, kişiye özel öneriler ve 7/24 destek ile 
+      RotanıSeç farkını yaşayacaksınız.</p>
+      </div>
+      <div class="footer-links">
+      <h4>Hızlı Erişim</h4>
+      <ul style="list-style:none; padding:0; margin:0;">
+        <li><a href="index.html">Anasayfa</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">Hakkımızda</a></li>
+        <li><a href="login.html">Giriş Yap</a></li>
+        <li><a href="register.html">Üye Ol</a></li>
+      </ul>
+    </div>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook-f" aria-label="Facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram" aria-label="Instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter" aria-label="Twitter"></i></a>
+      </div>
+    </div>
+    <p class="copyright">© 2025 RotanıSeç. Tüm hakları saklıdır.</p>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let idx = 0;
+    setInterval(() => {
+      slides[idx].classList.remove('active');
+      idx = (idx + 1) % slides.length;
+      slides[idx].classList.add('active');
+    }, 5000);
+  </script>
+
+  <script>
+    document.querySelectorAll('a[href="#searchForm"]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        alert('Rotanızı seçin!');
+        document.getElementById('searchForm').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('newsletterEmail').value.trim().toLowerCase();
+      if (!email) return alert('Lütfen e‑posta adresinizi girin.');
+      window.location.href = `register.html?email=${encodeURIComponent(email)}`;
+    });
+  </script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const map = L.map('map').setView([38.9637, 35.2433], 6);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+  
+        const locations = [
+          { name: 'İstanbul', coords: [41.0082, 28.9784] },
+          { name: 'Kapadokya', coords: [38.6423, 34.8277] },
+          { name: 'Antalya', coords: [36.8969, 30.7133] },
+          { name: 'İzmir', coords: [38.4237, 27.1428] }
+        ];
+        locations.forEach(loc => {
+          L.marker(loc.coords)
+            .addTo(map)
+            .bindPopup(`<strong>${loc.name}</strong>`);
+        });
+  
+        // Harita boyutu değiştiyse otomatik güncelleme
+        setTimeout(() => map.invalidateSize(), 200);
+      });
+    </script>
+  </body>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = [
+        'img/arkaplan.jpeg',
+        'img/arkaplan2.jpg',
+        'img/arkaplan3.jpeg',
+        'img/arkaplan4.jpg',
+        'img/arkaplan5.jpg'
+      ];
+      let current = 0;
+      const layer1 = document.querySelector('.layer1');
+      const layer2 = document.querySelector('.layer2');
+      let front = layer1, back = layer2;
+      const hero = document.querySelector('.hero');
+      hero.style.backgroundImage = `url('${slides[current]}')`;
+      front.style.backgroundImage = `url('${slides[current]}')`;
+      front.classList.add('active');
+  // **2.** Ardından her 5 saniyede bir slaytı değiştir
+  setInterval(() => {
+    // bir sonraki slide
+    current = (current + 1) % slides.length;
+    // back katmanını güncelle:
+    back.style.backgroundImage = `url('${slides[current]}')`;
+    // görünsün:
+    back.classList.add('active');
+    // eski front’u gizle:
+    front.classList.remove('active');
+    // layer referanslarını takas et:
+    [front, back] = [back, front];
+  }, 6000); // her 6 saniyede bir
+    });
+  </script>
+  
+</body>
+</html>

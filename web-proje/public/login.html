@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RotanıSeç – Giriş Yap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+</head>
+<body class="login-page">
+
+  <!-- HEADER & NAV -->
+  <header>
+    <nav aria-label="Ana navigasyon">
+      <div class="logo">
+        <a href="index.html"><img src="img/logo.png" alt="RotanıSeç"/></a>
+      </div>
+      <button class="nav-toggle"><i class="fa fa-bars"></i></button>
+      <div class="nav-links">
+        <a href="index.html">Anasayfa</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">Hakkımızda</a>
+        <a href="iletisim.html">İletişim</a>
+        <a href="login.html" class="active">Giriş Yap</a>
+        <a href="register.html">Üye Ol</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main style="margin-top:90px; padding:60px 0;">
+    <section style="max-width:400px; margin:auto; text-align:center; padding:60px 0;">
+      <h1>Giriş Yap</h1>
+      <form id="loginForm">
+        <!-- Kayıtta username olarak email değeri kullandıysanız, burada da name=email -->
+        <input
+          type="text"
+          id="username"
+          placeholder="Kullanıcı Adı / E-posta"
+          required
+          style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:6px;"
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="Parola"
+          required
+          style="width:100%; padding:12px; margin:10px 0; border:1px solid #ccc; border-radius:6px;"
+        />
+        <button
+          type="submit"
+          style="width:100%; padding:12px; margin-top:20px; border:none; border-radius:6px; background-color:#FF6E5A; color:#fff; font-size:1rem; cursor:pointer;"
+        >
+          Giriş Yap
+        </button>
+      </form>
+      <p style="margin-top:15px; font-size:0.9rem;">
+        Henüz üye değil misiniz? <a href="register.html">Üye Olun</a>
+      </p>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <!-- ... footer kodu ... -->
+  </footer>
+
+  <script>
+    // Menü toggle (sizin kodunuzdan kopyalayabilirsiniz)
+    document.querySelector('.nav-toggle').addEventListener('click', () => {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+
+    // Giriş formu submit handler
+    const form      = document.getElementById('loginForm');
+    const userInput = document.getElementById('username');
+    const passInput = document.getElementById('password');
+    const errorEl   = document.getElementById('errorMessage');
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      try {
+        const res = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: userInput.value.trim(),
+            password: passInput.value
+          })
+        });
+
+        // Önce ham yanıtı oku, sonra JSON parse et
+        const text = await res.text();
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch {
+          throw new Error('Sunucu geçerli JSON döndürmedi.');
+        }
+        if (!res.ok) throw new Error(data.error);
+        alert(data.message);
+
+        // Başarılıysa yönlendir
+        window.location.href = 'dashboard.html';  // veya dashboard.html
+      } catch (err) {
+        alert('Giriş hatası: ' + err.message);
+      }
+    });
+  </script>
+</body>
+</html>

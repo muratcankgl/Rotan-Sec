@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RotanıSeç – Otel Seçenekleri</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    .selection-summary {
+      margin-bottom: 40px;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .filter-panel {
+      padding: 20px 0;
+      background: #f9f9f9;
+      margin-bottom: 20px;
+    }
+    .filter-panel .container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .filter-panel label {
+      font-size: 1rem;
+      color: #333;
+    }
+    .filter-panel select {
+      margin-left: 8px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+    }
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+    .room-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+    }
+    .room-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+    .room-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+      color: #333;
+    }
+    .room-card .price {
+      font-weight: 700;
+      color: #FF6E5A;
+      margin-bottom: 15px;
+    }
+    .features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px;
+      flex-grow: 1;
+    }
+    .features li {
+      font-size: .95rem;
+      color: #555;
+      margin-bottom: 5px;
+    }
+    .room-card .btn {
+      padding: 12px 0;
+      border: none;
+      border-radius: 6px;
+      background-color: #FF6E5A;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .3s;
+    }
+    .room-card .btn:hover {
+      background-color: #FF6E5A;
+    }
+    @media (max-width: 992px) {
+      .rooms-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .rooms-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="search-page">
+
+  <!-- NAVBAR -->
+  <header>
+    <nav aria-label="Ana navigasyon">
+      <div class="logo">
+        <a href="index.html"><img src="img/logo.png" alt="RotanıSeç logosu"></a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Anasayfa</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">Hakkımızda</a>
+        <a href="iletisim.html">İletişim</a>
+        <a href="login.html">Giriş Yap</a>
+        <a href="register.html">Üye Ol</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="container" style="margin-top:90px; padding: 60px 0;">
+    <!-- 1. Seçim Özeti -->
+    <section class="selection-summary" id="summary"></section>
+
+    <!-- 1.5) Filtre & Sıralama -->
+    <section class="filter-panel">
+      <div class="container">
+        <label>
+          Sırala:
+          <select id="sortSelect">
+            <option value="priceAsc">Fiyata Göre ↑</option>
+            <option value="priceDesc">Fiyata Göre ↓</option>
+          </select>
+        </label>
+        <label>
+          Özellik:
+          <select id="featureFilter">
+            <option value="all">Tümü</option>
+            <option value="Deniz Manzarası">Deniz Manzarası</option>
+            <option value="Ücretsiz Wifi">Ücretsiz Wifi</option>
+            <option value="Kahvaltı Dahil">Kahvaltı Dahil</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <!-- 2. Dinamik Oda Kartları -->
+    <section class="rooms-grid" id="roomsGrid"></section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-sections">
+      <div class="footer-about">
+        <h3>RotanıSeç</h3>
+        <p>Hayalinizdeki geziyi kolayca planlayın.</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Anasayfa</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">Hakkımızda</a>
+        <a href="login.html">Giriş Yap</a>
+      </div>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook-f" aria-label="Facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram" aria-label="Instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter" aria-label="Twitter"></i></a>
+      </div>
+    </div>
+    <p class="copyright">© 2025 RotanıSeç. Tüm hakları saklıdır.</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params       = new URLSearchParams(window.location.search);
+      const checkIn      = params.get('date');
+      const checkOut     = params.get('checkout');
+      const people       = params.get('people');
+      const location     = params.get('location');
+
+      // Gece sayısı hesaplama
+      const d1 = new Date(checkIn), d2 = new Date(checkOut);
+      const msPerDay = 24*60*60*1000;
+      let nights = Math.round((d2 - d1) / msPerDay);
+      if (isNaN(nights) || nights < 1) nights = 1;
+
+      // Özet güncelleme
+      document.getElementById('summary').innerHTML = `
+        <h1>Otel Seçenekleri</h1>
+        <p>
+          “<strong>${location}</strong>” için
+          <strong>${checkIn}</strong> – <strong>${checkOut}</strong> arasında,
+          <strong>${nights} gece</strong>,
+          <strong>${people} kişi</strong>
+        </p>
+      `;
+
+      // Örnek odalar
+      const sampleRooms = [
+        { name: 'Standart Oda', pricePerNight: 500, img: 'img/room1.jpg', features: ['2 Yetişkin','Ücretsiz Wifi','Kahvaltı Dahil'] },
+        { name: 'Suit Oda',      pricePerNight: 800, img: 'img/room2.jpg', features: ['3 Yetişkin','Deniz Manzarası','Kahvaltı & Akşam Yemeği'] },
+        { name: 'Aile Odası',    pricePerNight: 650, img: 'img/room3.jpg', features: ['2 Yetişkin + 2 Çocuk','Açılır Kanepe','Kahvaltı Dahil'] }
+      ];
+
+      const grid          = document.getElementById('roomsGrid');
+      const sortSelect    = document.getElementById('sortSelect');
+      const featureSelect = document.getElementById('featureFilter');
+
+      function renderRooms() {
+        let rooms = [...sampleRooms];
+
+        // Filtreleme
+        const feature = featureSelect.value;
+        if (feature !== 'all') {
+          rooms = rooms.filter(r => r.features.includes(feature));
+        }
+
+        // Sıralama
+        const sortVal = sortSelect.value;
+        rooms.sort((a, b) => sortVal === 'priceAsc'
+          ? a.pricePerNight - b.pricePerNight
+          : b.pricePerNight - a.pricePerNight
+        );
+
+        // Kartları oluştur
+        grid.innerHTML = '';
+        rooms.forEach(room => {
+          const total = room.pricePerNight * nights;
+          const card  = document.createElement('div');
+          card.className = 'room-card';
+          card.innerHTML = `
+            <img src="${room.img}" alt="${room.name}">
+            <h3>${room.name}</h3>
+            <p class="price">
+              ₺${room.pricePerNight}/gece &bull; Toplam ₺${total}
+            </p>
+            <ul class="features">
+              ${room.features.map(f => `<li>${f}</li>`).join('')}
+            </ul>
+            <button type="button" class="btn">Rezervasyon Yap</button>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      // Event listener’lar
+      sortSelect.addEventListener('change', renderRooms);
+      featureSelect.addEventListener('change', renderRooms);
+
+      // İlk render
+      renderRooms();
+
+      // Rezervasyon butonu
+     // Mevcut grid.addEventListener(...) yerine bunu koyun:
+grid.addEventListener('click', e => {
+  if (e.target.matches('.room-card .btn')) {
+    // 1) Uyarı
+    alert('Lütfen giriş yapınız');
+    // 2) Giriş sayfasına yönlendirme
+    window.location.href = 'login.html';
+  }
+});
+
+        
+      
+    });
+  </script>
+</body>
+</html>
